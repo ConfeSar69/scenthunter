@@ -65,10 +65,10 @@
   <div class="row">
     <?php
     $productos = [
-      ['img' => 'assets/img/bleu.jpg', 'nombre' => 'Bleu de Chanel', 'precio' => 1800],
-      ['img' => 'assets/img/dior.jpg', 'nombre' => 'Sauvage Dior', 'precio' => 1750],
-      ['img' => 'assets/img/arabian.jpg', 'nombre' => 'Arabian Oud', 'precio' => 2200],
-      ['img' => 'assets/img/lacoste.jpg', 'nombre' => 'Lacoste Blanc', 'precio' => 1450],
+      ['img' => 'vistas/dist/img/bleudechanel.jpg', 'nombre' => 'Bleu de Chanel', 'precio' => 1800],
+      ['img' => 'vistas/dist/img/diorsauvage.jpg', 'nombre' => 'Sauvage Dior', 'precio' => 1750],
+      ['img' => 'vistas/dist/img/arabianoud.avif', 'nombre' => 'Arabian Oud', 'precio' => 2200],
+      ['img' => 'vistas/dist/img/lacosteblanc.jpg', 'nombre' => 'Lacoste Blanc', 'precio' => 1450],
     ];
     foreach ($productos as $p): ?>
       <div class="col-md-3 mb-4">
