@@ -65,10 +65,10 @@
   <div class="row">
     <?php
     $productos = [
-      ['img' => 'vistas/dist/img/bleudechanel.jpg', 'nombre' => 'Bleu de Chanel', 'precio' => 1800],
-      ['img' => 'vistas/dist/img/diorsauvage.jpg', 'nombre' => 'Sauvage Dior', 'precio' => 1750],
-      ['img' => 'vistas/dist/img/arabianoud.avif', 'nombre' => 'Arabian Oud', 'precio' => 2200],
-      ['img' => 'vistas/dist/img/lacosteblanc.jpg', 'nombre' => 'Lacoste Blanc', 'precio' => 1450],
+      ['img' => 'vistas/dist/img/bleudechanel.jpg', 'nombre' => 'Bleu de Chanel', 'precio' => 1799],
+      ['img' => 'vistas/dist/img/diorsauvage.jpg', 'nombre' => 'Sauvage Dior', 'precio' => 1755],
+      ['img' => 'vistas/dist/img/arabianoud.avif', 'nombre' => 'Arabian Oud', 'precio' => 2199],
+      ['img' => 'vistas/dist/img/lacosteblanc.jpg', 'nombre' => 'Lacoste Blanc', 'precio' => 1455],
     ];
     foreach ($productos as $p): ?>
       <div class="col-md-3 mb-4">
@@ -84,6 +84,58 @@
     <?php endforeach; ?>
   </div>
 </section>
+
+<!-- Lo Más Nuevo -->
+<section class="mt-5">
+  <h2 class="mb-4 text-center">Lo Más Nuevo</h2>
+  <div class="row">
+    <?php
+    $nuevos = [
+      ['img' => 'assets/img/nuevo1.jpg', 'nombre' => 'YSL Y Elixir', 'precio' => 2599],
+      ['img' => 'assets/img/nuevo2.jpg', 'nombre' => 'Phantom Parfum', 'precio' => 2399],
+      ['img' => 'assets/img/nuevo3.jpg', 'nombre' => 'Libre Absolu Platine', 'precio' => 2299],
+      ['img' => 'assets/img/nuevo4.jpg', 'nombre' => 'Aqua di Gio Profondo', 'precio' => 2555],
+    ];
+    foreach ($nuevos as $p): ?>
+      <div class="col-md-3 mb-4">
+        <div class="card shadow-sm h-100">
+          <img src="<?= $p['img'] ?>" class="card-img-top" alt="<?= $p['nombre'] ?>">
+          <div class="card-body text-center">
+            <h5 class="card-title"><?= $p['nombre'] ?></h5>
+            <p class="card-text">$<?= number_format($p['precio'], 2) ?> MXN</p>
+            <a href="index.php?page=detail&product=<?= urlencode($p['nombre']) ?>" class="btn btn-outline-dark btn-sm">Leer más</a>
+          </div>
+        </div>
+      </div>
+    <?php endforeach; ?>
+  </div>
+</section>
+
+<!-- Algunas de nuestras marcas -->
+<section class="mt-5 py-5 bg-light">
+  <div class="container text-center">
+    <h2 class="mb-4">Algunas de nuestras marcas</h2>
+    <div class="row justify-content-center align-items-center">
+      <?php
+      $marcas = [
+        'assets/img/marcas/chanel.png',
+        'assets/img/marcas/dior.png',
+        'assets/img/marcas/yves.png',
+        'assets/img/marcas/paco.png',
+        'assets/img/marcas/lacoste.png',
+        'assets/img/marcas/armani.png',
+        'assets/img/marcas/versace.png',
+        'assets/img/marcas/montblanc.png'
+      ];
+      foreach ($marcas as $logo): ?>
+        <div class="col-6 col-md-3 col-lg-2 mb-4">
+          <img src="<?= $logo ?>" alt="Marca" class="img-fluid grayscale" style="max-height: 60px; object-fit: contain;">
+        </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
 
 <!-- Beneficios / Ventajas -->
 <section class="py-5 bg-light mt-5">

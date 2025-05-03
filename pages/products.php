@@ -3,37 +3,37 @@
 $productos = [
   [
     'nombre' => 'Bleu de Chanel',
-    'precio' => 1800,
+    'precio' => 1799,
     'img' => 'vistas/dist/img/bleudechanel.jpg',
     'descripcion' => 'Una fragancia elegante y atemporal con notas de madera y cítricos.'
   ],
   [
     'nombre' => 'Sauvage Dior',
-    'precio' => 1750,
+    'precio' => 1755,
     'img' => 'vistas/dist/img/diorsauvage.jpg',
     'descripcion' => 'Perfume intenso con bergamota, pimienta y ambroxan.'
   ],
   [
     'nombre' => 'Arabian Oud',
-    'precio' => 2200,
+    'precio' => 2199,
     'img' => 'vistas/dist/img/arabianoud.avif',
     'descripcion' => 'Esencia oriental con oud, rosa y almizcle.'
   ],
   [
     'nombre' => 'Lacoste Blanc',
-    'precio' => 1450,
+    'precio' => 1455,
     'img' => 'vistas/dist/img/lacosteblanc.jpg',
     'descripcion' => 'Fragancia fresca con notas cítricas y florales.'
   ],
   [
     'nombre' => 'Acqua di Gio',
-    'precio' => 1650,
+    'precio' => 1655,
     'img' => 'vistas/dist/img/acquadigio.jpg',
     'descripcion' => 'Clásico aroma marino con matices herbales.'
   ],
   [
     'nombre' => 'Tom Ford Black Orchid',
-    'precio' => 2500,
+    'precio' => 2499,
     'img' => 'vistas/dist/img/tomfordbo3.jpg',
     'descripcion' => 'Lujosa y oscura fragancia con orquídea negra y trufa.'
   ],
