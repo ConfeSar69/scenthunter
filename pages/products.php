@@ -52,7 +52,6 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
   $resultados = $productos;
 }
 ?>
-
 <!-- CABECERA -->
 <section class="content-header">
   <h1 class="text-center mb-4">Catálogo de Perfumes</h1>

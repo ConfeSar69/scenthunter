@@ -1,3 +1,8 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
   <div class="container d-flex justify-content-between align-items-center">
 
@@ -71,9 +76,27 @@
       </div>
 
       <!-- Perfil -->
-      <a href="index.php?page=profile" class="nav-link text-dark" title="Perfil"><i class="fas fa-user"></i></a>
+      <div class="nav-item dropdown">
+        <a class="nav-link text-dark" href="#" id="perfilDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Perfil">
+          <i class="fas fa-user"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="perfilDropdown">
+          <?php if (!isset($_SESSION['usuario'])): ?>
+            <a class="dropdown-item" href="index.php?page=login">Iniciar sesión</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="index.php?page=register">¿Nuevo cliente? Regístrate ahora</a>
+          <?php else: ?>
+            <a class="dropdown-item" href="index.php?page=profile">Mi perfil</a>
+            <a class="dropdown-item" href="index.php?page=orders">Mis pedidos</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-danger" href="index.php?page=logout">Cerrar sesión</a>
+          <?php endif; ?>
+        </div>
+      </div>
+
       <!-- Favoritos -->
       <a href="index.php?page=favorites" class="nav-link text-dark" title="Favoritos"><i class="fas fa-heart"></i></a>
+
       <!-- Carrito -->
       <a href="index.php?page=cart" class="nav-link text-dark" title="Carrito"><i class="fas fa-shopping-cart"></i></a>
     </div>

@@ -1,51 +1,29 @@
 <?php
-$productos = [
-  'Bleu de Chanel' => [
-    'precio' => 1799,
-    'img' => 'vistas/dist/img/bleudechanel.jpg',
-    'descripcion' => 'Bleu de Chanel es una fragancia amaderada aromática con una apertura fresca de cítricos, acompañada de notas secas y profundas como incienso, jengibre y sándalo. Diseñada para el hombre elegante y libre.',
-    'notas' => 'Pomelo, incienso, jengibre, sándalo',
-    'url' => 'https://www.chanel.com/mx/perfumes/p/107360/bleu-de-chanel-parfum/'
-  ],
-  'Sauvage Dior' => [
-    'precio' => 1755,
-    'img' => 'vistas/dist/img/diorsauvage.jpg',
-    'descripcion' => 'Sauvage de Dior mezcla frescura salvaje con una base cálida y poderosa. Contiene bergamota de Calabria, pimienta y ambroxan, evocando un paisaje desértico bajo un cielo azul.',
-    'notas' => 'Bergamota, pimienta, ambroxan',
-    'url' => 'https://www.dior.com/es_mx/products/beauty-Y0996017-sauvage-eau-de-toilette'
-  ],
-  'Arabian Oud' => [
-    'precio' => 2199,
-    'img' => 'vistas/dist/img/arabianoud.avif',
-    'descripcion' => 'Una lujosa fragancia árabe con presencia imponente. Destaca el oud puro, la rosa oriental y un fondo de ámbar y almizcle que deja una estela inolvidable.',
-    'notas' => 'Oud, rosa oriental, ámbar, almizcle',
-    'url' => 'https://www.arabianoud.com/'
-  ],
-  'Lacoste Blanc' => [
-    'precio' => 1455,
-    'img' => 'vistas/dist/img/lacosteblanc.jpg',
-    'descripcion' => 'Lacoste Blanc es una fragancia limpia, fresca y versátil. Ideal para el día a día. Combina pomelo, romero y cardamomo sobre una base de cuero blanco y madera.',
-    'notas' => 'Pomelo, romero, cuero blanco, madera de cedro',
-    'url' => 'https://www.lacoste.com/mx/lacoste-blanc/'
-  ],
-  'Acqua di Gio' => [
-    'precio' => 1655,
-    'img' => 'vistas/dist/img/acquadigio.jpg',
-    'descripcion' => 'Una icónica fragancia acuática inspirada en el mar Mediterráneo. Ligera pero masculina, combina notas marinas con jazmín, romero y pachuli.',
-    'notas' => 'Notas marinas, jazmín, romero, pachuli',
-    'url' => 'https://www.armani.com/acqua-di-gio'
-  ],
-  'Tom Ford Black Orchid' => [
-    'precio' => 2499,
-    'img' => 'vistas/dist/img/tomfordbo3.jpg',
-    'descripcion' => 'Una fragancia oscura y opulenta, con notas de orquídea negra, trufa, chocolate negro y especias. Un perfume misterioso, sensual y lujoso.',
-    'notas' => 'Orquídea negra, trufa, chocolate negro, especias',
-    'url' => 'https://www.tomford.com/beauty/fragrance/black-orchid/'
-  ],
-];
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-$producto = $_GET['product'] ?? '';
-$data = $productos[$producto] ?? null;
+require_once 'config/conexion.php'; // Conexión con la base de datos ($ccon)
+
+$producto = $_GET['product'] ?? ''; // Obtener el nombre del producto desde la URL
+$data = null; // Variable donde se almacenarán los detalles del producto
+
+// Verificar si se ha proporcionado el nombre del producto
+if ($producto) {
+    // Preparar la consulta SQL para obtener los detalles del producto
+    $stmt = $conn->prepare("SELECT * FROM productos WHERE nombre = :producto");
+    $stmt->bindParam(':producto', $producto, PDO::PARAM_STR);
+    $stmt->execute();
+    $data = $stmt->fetch(PDO::FETCH_ASSOC); // Obtener los datos del producto
+
+    // Debugging: ver el contenido de $data
+    //var_dump($data); // Esto imprimirá el array $data y nos ayudará a identificar si la clave 'img' existe.
+
+    // Si no se encuentra el producto, mostramos un mensaje
+    if (!$data) {
+        echo "<div class='alert alert-danger text-center mt-4'>Producto no encontrado</div>";
+    }
+}
 ?>
 
 <?php if ($data): ?>
@@ -56,25 +34,44 @@ $data = $productos[$producto] ?? null;
           <div class="card mb-4 shadow-sm">
             <div class="row g-0">
               <div class="col-md-5">
-                <img src="<?= $data['img'] ?>" class="img-fluid rounded-start w-100" alt="<?= $producto ?>">
+                <!-- Mostrar la imagen del producto -->
+                <?php
+                if (isset($data['imagen'])) {
+                    $imgPath = '/scenthunter/' . htmlspecialchars($data['imagen']);
+                    echo '<img src="' . $imgPath . '" class="img-fluid rounded-start w-100" alt="' . htmlspecialchars($data['nombre']) . '">';
+                } else {
+                    echo '<p>Imagen no disponible</p>';
+                }
+                ?>
               </div>
               <div class="col-md-7">
                 <div class="card-body">
-                  <h3 class="card-title"><?= $producto ?></h3>
-                  <p class="card-text"><?= $data['descripcion'] ?></p>
-                  <p><strong>Notas principales:</strong> <?= $data['notas'] ?></p>
+                  <h3 class="card-title"><?= htmlspecialchars($data['nombre']) ?></h3>
+                  <p class="card-text"><?= nl2br(htmlspecialchars($data['descripcion'])) ?></p>
+                  <p><strong>Notas principales:</strong> <?= htmlspecialchars($data['notas']) ?></p>
                   <p><strong>Precio:</strong> $<?= number_format($data['precio'], 2) ?> MXN</p>
-                  <a href="<?= $data['url'] ?>" class="btn btn-outline-info btn-sm mb-2" target="_blank">
+
+                  <!-- Enlace a la página oficial del producto -->
+                  <a href="<?= htmlspecialchars($data['url']) ?>" class="btn btn-outline-info btn-sm mb-2" target="_blank">
                     Ver en sitio oficial
                   </a>
                   <br>
-                  <a href="index.php?page=cart&add=<?= urlencode($producto) ?>" class="btn btn-success">
+
+                  <!-- Botón para agregar al carrito -->
+                  <a href="index.php?page=cart&add=<?= urlencode($data['nombre']) ?>" class="btn btn-success">
                     Agregar al carrito
+                  </a>
+                  <br>
+
+                  <!-- Botón para agregar a favoritos -->
+                  <a href="actions/favoritos.php?producto_id=<?= urlencode($data['id']) ?>" class="btn btn-warning">Agregar a Favoritos</a>
                   </a>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Botón para volver al catálogo -->
           <a href="index.php?page=products" class="btn btn-secondary">Volver al catálogo</a>
         </div>
       </div>

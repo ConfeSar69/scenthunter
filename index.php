@@ -1,9 +1,24 @@
 <?php
-
+ob_start(); // Habilita el búfer de salida
 session_start();
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
+// Verificar si hay un parámetro 'add' en la URL
+if (isset($_GET['add'])) {
+    $producto = $_GET['add'];
+
+    // Verificar si la sesión de favoritos no existe
+    if (!isset($_SESSION['favoritos'])) {
+        $_SESSION['favoritos'] = [];
+    }
+
+    // Verificar si el producto no está ya en favoritos
+    if (!in_array($producto, $_SESSION['favoritos'])) {
+        $_SESSION['favoritos'][] = $producto;
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -38,7 +53,7 @@ if (!isset($_SESSION['cart'])) {
         if (file_exists("pages/$page.php")) {
             include "pages/$page.php";
         } else {
-            include "404.php"; 
+            include "pages/404.php"; 
         }
     } else {
         include "pages/home.php"; 

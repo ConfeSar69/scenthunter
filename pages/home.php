@@ -2,10 +2,10 @@
 <div id="mainBanner" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="assets/img/banner1.jpg" class="d-block w-100" alt="Promo 1">
+      <img src="vistas/dist/img/promo2.jpeg" class="d-block w-100" alt="Promo 1" style="width: 100%; height: 550px; object-fit: cover;">
     </div>
     <div class="carousel-item">
-      <img src="assets/img/banner2.jpg" class="d-block w-100" alt="Promo 2">
+      <img src="vistas/dist/img/promo1.jpeg" class="d-block w-100" alt="Promo 2" style="width: 100%; height: 550px; object-fit: cover;">
     </div>
   </div>
   <a class="carousel-control-prev" href="#mainBanner" role="button" data-slide="prev">
