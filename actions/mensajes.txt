@@ -2,3 +2,7 @@ Nombre: hola
 Correo: dhjdbchq@gmail.com
 Mensaje: prime la pagina
 --------------------
+Nombre: alvaro
+Correo: alvarito845@gmail.com
+Mensaje: hola
+--------------------

@@ -44,7 +44,7 @@ $favoritos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <h5 class="card-title"><?= htmlspecialchars($favorito['nombre']) ?></h5>
                 <p class="card-text"><?= htmlspecialchars($favorito['descripcion']) ?></p>
                 <p><strong>Precio:</strong> $<?= number_format($favorito['precio'], 2) ?> MXN</p>
-                <a href="index.php?page=detail&producto_id=<?= urlencode($favorito['id']) ?>" class="btn btn-info btn-sm">Ver Detalles</a>
+                <a href="index.php?page=detail&product=<?= urlencode($favorito['nombre']) ?>" class="btn btn-info btn-sm">Ver Detalles</a>
                 <a href="index.php?page=cart&add=<?= urlencode($favorito['nombre']) ?>" class="btn btn-success btn-sm mt-2">Agregar al Carrito</a>
                 <!-- Botón para eliminar de favoritos -->
                 <a href="actions/eliminar_favorito.php?producto_id=<?= urlencode($favorito['id']) ?>" class="btn btn-danger btn-sm mt-2" onclick="return confirm('¿Estás seguro de eliminar este producto de tus favoritos?');">Eliminar de Favoritos</a>
