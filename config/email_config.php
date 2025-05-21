@@ -1,8 +1,8 @@
-<?php
+<?php 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../vendor/autoload.php'; // Asegúrate de que tienes PHPMailer instalado con Composer
+require '../vendor/autoload.php';
 
 function enviarCorreoConfirmacion($correo, $nombre, $pedido_id, $total) {
     $mail = new PHPMailer(true);
@@ -10,20 +10,20 @@ function enviarCorreoConfirmacion($correo, $nombre, $pedido_id, $total) {
     try {
         // Configuración del servidor SMTP
         $mail->isSMTP();
-        $mail->Host       = 'smtp.gmail.com'; // Usa el host de tu servicio de correo
+        $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'noelno28@gmail.com'; // Cambia por tu correo
-        $mail->Password   = 'Christopher98732'; // Usa contraseña de app si es Gmail
+        $mail->Username   = 'noelno28@gmail.com'; // Tu correo Gmail
+        $mail->Password   = 'jgll stol pmcf bdmc'; // Contraseña de aplicación válida
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
 
-        // Datos del remitente y receptor
-        $mail->setFrom('c', 'ScentHunter');
+        // Remitente y receptor
+        $mail->setFrom('noelno28@gmail.com', 'ScentHunter');
         $mail->addAddress($correo, $nombre);
 
-        // Contenido del correo
+        // Contenido del mensaje
         $mail->isHTML(true);
-        $mail->Subject = "Confirmación de tu pedido #$pedido_id";
+        $mail->Subject = "Confirmacion de tu pedido #$pedido_id";
         $mail->Body    = "<h3>Gracias por tu compra, $nombre</h3>
                           <p>Tu pedido con ID <strong>$pedido_id</strong> ha sido registrado exitosamente.</p>
                           <p>Total: <strong>$$total MXN</strong></p>
@@ -32,6 +32,8 @@ function enviarCorreoConfirmacion($correo, $nombre, $pedido_id, $total) {
         $mail->send();
         return true;
     } catch (Exception $e) {
+        error_log("Error al enviar correo: " . $mail->ErrorInfo);
         return false;
     }
 }
+

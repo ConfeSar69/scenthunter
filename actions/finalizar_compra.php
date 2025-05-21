@@ -12,10 +12,8 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 $usuario_id = $_SESSION['usuario']['id'];
-// En este caso, el carrito se toma de BD, no de sesión
-// Pero si quieres usar sesión:
-// $cart = $_SESSION['cart'] ?? [];
 
+// Obtener carrito desde BD
 $stmtCarrito = $conn->prepare("SELECT producto_id, cantidad FROM carrito WHERE usuario_id = ?");
 $stmtCarrito->execute([$usuario_id]);
 $cart = $stmtCarrito->fetchAll(PDO::FETCH_KEY_PAIR); // producto_id => cantidad
@@ -33,6 +31,7 @@ $stmt = $conn->prepare("INSERT INTO pedidos (usuario_id, total) VALUES (?, ?)");
 $stmt->execute([$usuario_id, $total]);
 $pedido_id = $conn->lastInsertId();
 
+// Insertar detalle de pedido
 $stmtDetalle = $conn->prepare("INSERT INTO detalle_pedidos (pedido_id, producto_id, cantidad, precio_unitario) VALUES (?, ?, ?, ?)");
 
 foreach ($cart as $producto_id => $cantidad) {
@@ -45,12 +44,12 @@ foreach ($cart as $producto_id => $cantidad) {
     }
 }
 
-// Enviar correo
-if (!enviarCorreoConfirmacion($_SESSION['usuario']['correo'], $_SESSION['usuario']['nombre'], $pedido_id, $total)) {
+// Enviar correo al usuario actual (¡corregido aquí!)
+if (!enviarCorreoConfirmacion($_SESSION['usuario']['email'], $_SESSION['usuario']['nombre'], $pedido_id, $total)) {
     error_log("No se pudo enviar el correo de confirmación.");
 }
 
-// Vaciar carrito (tanto en DB como en sesión si la usas)
+// Vaciar carrito
 $stmtEliminar = $conn->prepare("DELETE FROM carrito WHERE usuario_id = ?");
 $stmtEliminar->execute([$usuario_id]);
 unset($_SESSION['cart']);
