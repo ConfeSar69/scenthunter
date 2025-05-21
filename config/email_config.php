@@ -12,8 +12,8 @@ function enviarCorreoConfirmacion($correo, $nombre, $pedido_id, $total) {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com'; // Usa el host de tu servicio de correo
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'noelno28@gmail.com'; // Cambia por tu correo
-        $mail->Password   = 'Christopher98732'; // Usa contraseña de app si es Gmail
+        $mail->Username   = '@gmail.com'; // Cambia por tu correo
+        $mail->Password   = ''; // Usa contraseña de app si es Gmail
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
 
