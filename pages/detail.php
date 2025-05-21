@@ -58,7 +58,7 @@ if ($producto) {
                   <br>
 
                   <!-- Botón para agregar al carrito -->
-                  <a href="index.php?page=cart&add=<?= urlencode($data['nombre']) ?>" class="btn btn-success">
+                  <a href="actions/add_to_cart.php?producto_id=<?= $data['id'] ?>" class="btn btn-success">
                     Agregar al carrito
                   </a>
                   <br>
